@@ -18,7 +18,7 @@ const registerUser = asyncHandler ( async (req, res) => {
     //9. return res
 
     const {fullName, email, username, password} = req.body
-    console.log("email:", email)
+    // console.log("email:", email)
 
     // do user give all field checking
     if(
@@ -41,19 +41,24 @@ const registerUser = asyncHandler ( async (req, res) => {
 
     const avatarLocalPath = req.files?.avatar[0]?.path;
 
-    const coverImagePath = req.files?.coverImage[0]?.path;
+    // const coverImagePath = req.files?.coverImage[0]?.path;
+
+    let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+        coverImageLocalPath = req.files.coverImage[0].path
+    }
 
     if(!avatarLocalPath){
         throw new ApiError(400, "Avatar files is required !!!")
     }
 
     const avatar = await uploadOnCloudinary(avatarLocalPath)
-    console.log(avatar)
+    // console.log("avatar 51 getting error on cludinary upload",avatar)
 
-    const coverImage = await uploadOnCloudinary(coverImagePath)
+    const coverImage = await uploadOnCloudinary(coverImageLocalPath)
 
     if(!avatar){
-        throw new ApiError(400, "avatar files is required")
+        throw new ApiError(400, "avatar files is required is 56 line ")
     }
 
     const user = await User.create({

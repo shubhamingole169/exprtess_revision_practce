@@ -12,11 +12,11 @@ const storage = multer.diskStorage({
     }
 })
 
-// this showing error
+// // this showing error
 export const upload = multer({ storage })
 
 
-// export const upload = multer.fields([
-//     { name: 'avatar', maxCount: 1 },
-//     { name: 'coverImage', maxCount: 1 }
-// ]);
+// // export const upload = multer.fields([
+// //     { name: 'avatar', maxCount: 1 },
+// //     { name: 'coverImage', maxCount: 1 }
+// // ]);
