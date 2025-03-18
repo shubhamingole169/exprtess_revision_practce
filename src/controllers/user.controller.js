@@ -3,7 +3,7 @@ import { ApiError } from "../utils/ApiError.js"
 import { User } from './../models/use.model.js';
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
-import { jwt } from 'jsonwebtoken';
+import  jwt  from 'jsonwebtoken';
 
 
 const generateAccessAndRefreshTokens = async(userId) => {
@@ -101,15 +101,6 @@ const registerUser = asyncHandler ( async (req, res) => {
     return res.status(201).json(
         new ApiResponse(200, createdUser, "User register successfully !!!")
     )
-
-
-
-
-
-
-
-
-
 })
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -264,7 +255,8 @@ return res
 const getCurrentUser = asyncHandler(async(req, res) => {
     return res
     .status(200)
-    .json(200, req.user, "current user fetched successfully !!!")
+    .json( new ApiResponse(200, req.user, "current user fetched successfully !!!")
+    )
 })
 
 const updateAccountDetils = asyncHandler(async(req, res) => {
@@ -295,6 +287,8 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     if(!avatarLocalPath){
         throw new ApiError(400, "Avatar files is missing !!!");
     }
+
+    //Todo : delete pic from cloudinary old avatar
 
     const avatar = await uploadOnCloudinary(avatarLocalPath)
 
@@ -352,8 +346,9 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
     .json(
         new ApiResponse(200, user, "Cover Image updated successfully !!!")
     )
-
 })
+
+
 
 export {
     registerUser,
